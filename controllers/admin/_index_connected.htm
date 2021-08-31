@@ -1,0 +1,26 @@
+<div>
+    <div class="callout fade in callout-info no-subheader">
+        <div class="header">
+            <i class="icon-info"></i>
+            <h3><?=e(trans('waka.msgraph::lang.admin.connexion_ok'))?></h3>
+        </div>
+    </div>
+    <div id="sync_result">
+    </div>
+    <div class="loading-indicator-container">
+        <button type="button"
+                class="btn btn-primary btn-lg oc-icon-refresh"
+                data-request='onSync'
+                data-load-indicator="<?= e(trans('waka.msgraph::lang.admin.sync_run')) ?>"
+                data-request-update="result: '#sync_result'">
+            <?=e(trans('waka.msgraph::lang.admin.sync'))?>
+        </button>
+        <button type="button"
+                class="btn btn-primary btn-lg oc-icon-refresh"
+                data-request='onTestDrive'
+                data-load-indicator="<?= e(trans('waka.msgraph::lang.admin.sync_run')) ?>"
+                data-request-update="result: '#sync_result'">
+            Test de chargement
+        </button>
+    </div>
+</div>

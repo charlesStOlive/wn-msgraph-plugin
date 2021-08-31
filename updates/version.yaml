@@ -1,0 +1,6 @@
+1.0.1: 
+  - 'First version of msgraph'
+  - create_ms_graph_tokens_table.php
+1.0.2:
+  - "Ajout de l'id ms graph dans la table des user"
+  - extend_users_table.php

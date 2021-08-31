@@ -1,0 +1,16 @@
+<div class="callout fade in callout-success">
+    <button
+            type="button"
+            class="close"
+            data-dismiss="callout"
+            aria-hidden="true">&times;</button>
+    <div class="header">
+        <i class="icon-checkg"></i>
+        <h3><?=e(trans('waka.msgraph::lang.admin.success'))?></h3>
+        <p> <?=$userFinded?> / <?=$wakaUserCount?> <?=e(trans('waka.msgraph::lang.admin.success_com'))?></p>
+        <p><a href="<?=Backend::url('backend/users')?>"><?=e(trans('waka.msgraph::lang.admin.show_user'))?></a></p>
+    </div>
+    <!-- <div class="content">
+        <p>Insert coin(s) to begin play</p>
+    </div> -->
+</div>
