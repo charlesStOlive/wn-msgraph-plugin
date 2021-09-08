@@ -4,6 +4,7 @@ use BackendMenu;
 use Backend\Classes\Controller;
 use System\Classes\SettingsManager;
 use Backend\Models\User as UserModel;
+use Brick\VarExporter\VarExporter;
 /**
  * WakaUsers Back-end Controller
  */
@@ -75,6 +76,19 @@ class Admin extends Controller
 
         $this->vars['wakaUserCount'] = 1;
         $this->vars['userFinded'] = 1;
+    }
+    public function onListSites() {
+        $result = \MsGraphAdmin::files()->getSites();
+        /**/trace_log($result);
+        $this->vars['result'] = VarExporter::export($result,VarExporter::NO_CLOSURES);
+        return true;
+
+    }
+    public function onListGroups() {
+        $result = \MsGraphAdmin::files()->getGroups();
+        /**/trace_log($result);
+        $this->vars['result'] = VarExporter::export($result,VarExporter::NO_CLOSURES);
+        return true;
     }
 
     public function onSync() {

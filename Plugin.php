@@ -141,6 +141,11 @@ class Plugin extends PluginBase
                     'label' => "Dossier drive",
                     'default' => "notilac_cloud"
                 ],
+                'base_request' => [
+                    'tab' => 'Office 365',
+                    'label' => "Requête de base",
+                    'default' => "sites/notilac.sharepoint.com"
+                ],
             ]);
         });
         

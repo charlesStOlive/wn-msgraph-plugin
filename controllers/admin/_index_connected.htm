@@ -5,8 +5,7 @@
             <h3><?=e(trans('waka.msgraph::lang.admin.connexion_ok'))?></h3>
         </div>
     </div>
-    <div id="sync_result">
-    </div>
+
     <div class="loading-indicator-container">
         <button type="button"
                 class="btn btn-primary btn-lg oc-icon-refresh"
@@ -17,10 +16,20 @@
         </button>
         <button type="button"
                 class="btn btn-primary btn-lg oc-icon-refresh"
-                data-request='onTestDrive'
+                data-request='onListSites'
                 data-load-indicator="<?= e(trans('waka.msgraph::lang.admin.sync_run')) ?>"
-                data-request-update="result: '#sync_result'">
-            Test de chargement
+                data-request-update="result_lists: '#sync_result'">
+            Voir les sites
+        </button>
+        <button type="button"
+                class="btn btn-primary btn-lg oc-icon-refresh"
+                data-request='onListGroups'
+                data-load-indicator="<?= e(trans('waka.msgraph::lang.admin.sync_run')) ?>"
+                data-request-update="result_lists: '#sync_result'">
+            Voir les groupes
         </button>
     </div>
+    <div id="sync_result">
+    </div>
+
 </div>
