@@ -53,7 +53,7 @@ class OutlookBehavior extends MailBehavior
         $modelClass = post('modelClass');
         $modelId = post('modelId');
         //datasource
-        $ds = new DataSource($modelClass, 'class');
+        $ds = \DataSources::findByClass($modelClass);
         $options = $ds->getProductorOptions('Waka\Mailer\Models\WakaMail', $modelId);
         $contact = $ds->getContact('to', $modelId);
         //
@@ -86,7 +86,7 @@ class OutlookBehavior extends MailBehavior
         $productorId = post('productorId');
         $wakaMail = WakaMail::find($productorId);
         $dataSourceCode = $wakaMail->data_source;
-        $ds = new DataSource($dataSourceCode);
+        $ds = \DataSources::find($dataSourceCode);
         $options = $ds->getProductorOptions('Waka\Mailer\Models\WakaMail');
         $contact = $ds->getContact('to', null);
         $this->mailBehaviorWidget->getField('email')->options = $contact;
@@ -108,7 +108,7 @@ class OutlookBehavior extends MailBehavior
         $productorId = post('productorId');
         $modelClass = post('modelClass');
         $modelId = post('modelId');
-        $ds = new DataSource($modelClass, 'class');
+        $ds = \DataSources::findByClass($modelClass);
         $wakaMail = WakaMail::find($productorId);
 
 
@@ -193,7 +193,7 @@ class OutlookBehavior extends MailBehavior
             return ['#popupActionContent' => $this->makePartial('$/waka/msgraph/behaviors/OutlookBehavior/_error_msg.htm')];
         } 
         $modelClass = post('modelClass');
-        $ds = new DataSource($modelClass, 'class');
+        $ds = \DataSources::findByClass($modelClass);
         $options = $ds->getPartialIndexOptions('Waka\Mailer\Models\WakaMail');
         //
         $this->vars['options'] = $options;
