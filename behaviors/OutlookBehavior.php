@@ -37,9 +37,9 @@ class OutlookBehavior extends MailBehavior
     {
         $this->getPopupOutlookContent();
         if(\BackendAuth::getUser()->hasMsId) {
-            return $this->makePartial('$/waka/msgraph/behaviors/OutlookBehavior/_popup.htm');
+            return $this->makePartial('$/waka/msgraph/behaviors/outlookbehavior/_popup.htm');
         } else {
-            return $this->makePartial('$/waka/msgraph/behaviors/OutlookBehavior/_error_msg_popup.htm');
+            return $this->makePartial('$/waka/msgraph/behaviors/outlookbehavior/_error_msg_popup.htm');
         }
         
     }
