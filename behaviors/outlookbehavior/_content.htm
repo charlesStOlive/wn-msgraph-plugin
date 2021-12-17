@@ -3,6 +3,7 @@
 <div class="report-widget">
     <h5><?=e(trans('waka.mailer::wakamail.create'))?></h5>
     <div class="modal-body">
+        <?= $this->makePartial('~/plugins/waka/utils/views/condition_errors_tt.htm') ?>
         <input id="modelClass" name="modelClass" type="hidden" value="<?=$modelClass?>">
         <input id="modelId" name="modelId" type="hidden" value="<?=$modelId?>">
         <select class="form-control custom-select"

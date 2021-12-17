@@ -14,6 +14,7 @@ class OutlookBehavior extends MailBehavior
     protected $mailBehaviorWidget;
     protected $mailDataWidget;
     protected $controller;
+    public $errors;
 
     public function __construct($controller)
     {
@@ -21,6 +22,11 @@ class OutlookBehavior extends MailBehavior
         $this->controller = $controller;
         $this->mailBehaviorWidget = $this->createMailBehaviorWidget();
         $this->mailDataWidget = $this->createMailDataWidget();
+        $this->errors = [];
+        \Event::listen('waka.utils::conditions.error', function ($error) {
+            array_push($this->errors, $error);
+        });
+        
     }
 
     /**
@@ -74,6 +80,7 @@ class OutlookBehavior extends MailBehavior
         ]); 
         $this->vars['mailBehaviorWidget'] = $this->mailBehaviorWidget;
         $this->vars['modelId'] = $modelId;
+        $this->vars['errors'] = $this->errors;
         $this->vars['modelClass'] = $modelClass;
         $this->vars['options'] = $options;
     }
