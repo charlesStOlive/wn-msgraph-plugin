@@ -1,0 +1,8 @@
+<?php 
+
+if(\MsGraphAdmin::isConnected()) {
+    echo $this->makePartial('$/waka/msgraph/models/settings/_index_connected.htm');
+} else {
+    echo $this->makePartial('$/waka/msgraph/models/settings/_connect.htm');
+}
+?>
