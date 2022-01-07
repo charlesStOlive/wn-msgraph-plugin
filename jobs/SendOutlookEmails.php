@@ -92,7 +92,7 @@ class SendOutlookEmails implements WakajobQueueJob
         $productorId = $this->data['productorId'];
         $mailCreator = MailCreator::find($productorId);
         $modelDataSource = $mailCreator->getProductor()->data_source;
-        $ds = \DataSources::find($modelDataSource);
+        
         //
         $targets = $this->data['listIds'];
 
@@ -135,12 +135,15 @@ class SendOutlookEmails implements WakajobQueueJob
                      */
                     //trace_log("DEBUT TRAITEMENT **************");
                     $mailCreator->setModelId($targetId);
+                    $ds = \DataSources::find($modelDataSource);
                     $scopeIsOk = $mailCreator->checkConditions();
                     if (!$scopeIsOk) {
                         $scopeError++;
                         continue;
                     }
+                    $emails = null;
                     $emails = $ds->getContact('to', $targetId);
+                    trace_log($emails);
                     if (!$emails) {
                         ++$skipped;
                         continue;
