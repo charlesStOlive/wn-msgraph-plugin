@@ -17,7 +17,7 @@ class ParseMsData
         }
         $finalValues = [];
         $values = $value['value'];
-        trace_log($values);
+        //trace_log($values);
         foreach($values as $item) {
             if($item['displayName'] ?? false) {
                 array_push($finalValues, ['name' => $item['displayName'], 'code' => $item['id']]);
@@ -34,7 +34,7 @@ class ParseMsData
         }
         $finalValues = [];
         $values = $value['value'];
-        trace_log($values);
+        //trace_log($values);
         foreach($values as $item) {
             if($item['displayName'] ?? false) {
                 array_push($finalValues, ['name' => $item['displayName'], 'code' => 'groups/'.$item['id']]);

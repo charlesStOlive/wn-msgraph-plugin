@@ -143,7 +143,7 @@ class SendOutlookEmails implements WakajobQueueJob
                     }
                     $emails = null;
                     $emails = $ds->getContact('to', $targetId);
-                    trace_log($emails);
+                    //trace_log($emails);
                     if (!$emails) {
                         ++$skipped;
                         continue;

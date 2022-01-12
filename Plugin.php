@@ -69,18 +69,18 @@ class Plugin extends PluginBase
                                 ];
                     });
                     $controller->addDynamicMethod('onSyncMsUsers', function () use ($controller) {
-                        trace_log('onSyncMsUsers');
+                        //trace_log('onSyncMsUsers');
                         if(\MsGraphAdmin::isConnected()) {
-                            trace_log("isConnected");
+                            //trace_log("isConnected");
                             $users = \MsGraphAdmin::get('users');
                             $users = $users['value'];
-                            trace_log($users);
+                            //trace_log($users);
                             $userFinded = 0;
                             $wakaUserCount = UserModel::count();
                             
                             foreach($users as $user) {
                                 $mail = $user['mail'] ?? "Error_";
-                                trace_log($mail);
+                                //trace_log($mail);
                                 //trace_sql();
                                 $wakaUser = UserModel::where('email', $mail)->first();
                                 if($wakaUser) {
@@ -107,7 +107,7 @@ class Plugin extends PluginBase
                     
                 }
             } catch (\ApplicationException $e) {
-                trace_log("fuck");
+                //trace_log("fuck");
             }
             //trace_log(get_class($controller->formGetWidget()));
             // if ($controller->formGetWidget()->model instanceof \Waka\MsGraph\Models\Settings) {
