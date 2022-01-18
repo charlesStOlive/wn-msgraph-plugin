@@ -297,8 +297,8 @@ class Plugin extends PluginBase
     public function registerSettings()
     {
         return [
-            'admin_graph' => [
-                'label' => 'New',
+            'new' => [
+                'label' => 'Microsoft Graph',
                 'description' => Lang::get('waka.msgraph::lang.settings.description'),
                 'category' => Lang::get('waka.msgraph::lang.settings.category'),
                 'icon' => 'wicon-windows',
