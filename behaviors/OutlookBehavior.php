@@ -50,7 +50,7 @@ class OutlookBehavior extends MailBehavior
         if(\BackendAuth::getUser()->hasMsId) {
             return ['#popupActionContent' => $this->makePartial('$/waka/msgraph/behaviors/outlookbehavior/_content.htm')];
         } else {
-            return ['#popupActionContent' => $this->makePartial('$/waka/msgraph/behaviors/OutlookBehavior/_error_msg.htm')];
+            return ['#popupActionContent' => $this->makePartial('$/waka/msgraph/behaviors/outlookbehavior/_error_msg.htm')];
         }
     }
 
@@ -197,7 +197,7 @@ class OutlookBehavior extends MailBehavior
     public function onLotOutlook()
     {
          if(!\BackendAuth::getUser()->hasMsId) {
-            return ['#popupActionContent' => $this->makePartial('$/waka/msgraph/behaviors/OutlookBehavior/_error_msg.htm')];
+            return ['#popupActionContent' => $this->makePartial('$/waka/msgraph/behaviors/outlookbehavior/_error_msg.htm')];
         } 
         $modelClass = post('modelClass');
         $ds = \DataSources::findByClass($modelClass);
