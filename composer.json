@@ -9,7 +9,7 @@
         }
     ],
     "require": {
-        "dcblogdev/laravel-microsoft-graph": "dev-waka"
+        "dcblogdev/laravel-microsoft-graph": "dev-master_9"
     },
     "scripts": {
         "post-create-project-cmd": [
