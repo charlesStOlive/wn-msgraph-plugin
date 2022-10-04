@@ -10,7 +10,6 @@ use Waka\Utils\Classes\DataSource;
 
 class OutlookBehavior extends MailBehavior
 {
-    use \Waka\Utils\Classes\Traits\StringRelation;
     protected $mailBehaviorWidget;
     protected $mailDataWidget;
     protected $controller;
