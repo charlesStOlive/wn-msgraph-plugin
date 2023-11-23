@@ -1,5 +1,5 @@
 <div>
-    <div class="callout fade in callout-info no-subheader">
+    <div class="callout fade in callout-success no-subheader">
         <div class="header">
             <i class="icon-info"></i>
             <h3><?=e(trans('waka.msgraph::lang.admin.connexion_ok'))?></h3>
@@ -9,27 +9,25 @@
     <div class="loading-indicator-container">
         <button type="button"
                 class="btn btn-primary btn-lg oc-icon-refresh"
-                data-request='onSync'
+                data-request='onSyncMsUsers'
                 data-load-indicator="<?= e(trans('waka.msgraph::lang.admin.sync_run')) ?>"
-                data-request-update="result: '#sync_result'">
+                >
             <?=e(trans('waka.msgraph::lang.admin.sync'))?>
         </button>
         <button type="button"
                 class="btn btn-primary btn-lg oc-icon-refresh"
-                data-request='onListSites'
+                data-request='onMsGraphLists'
                 data-load-indicator="<?= e(trans('waka.msgraph::lang.admin.sync_run')) ?>"
-                data-request-update="result_lists: '#sync_result'">
+                >
             Voir les sites
         </button>
-        <button type="button"
+        <!-- <button type="button"
                 class="btn btn-primary btn-lg oc-icon-refresh"
                 data-request='onListGroups'
                 data-load-indicator="<?= e(trans('waka.msgraph::lang.admin.sync_run')) ?>"
                 data-request-update="result_lists: '#sync_result'">
             Voir les groupes
-        </button>
-    </div>
-    <div id="sync_result">
+        </button> -->
     </div>
 
 </div>

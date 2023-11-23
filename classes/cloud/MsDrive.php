@@ -18,6 +18,10 @@ class MsDrive
         
         return \MsGraphAdmin::files()->upload($pathAndFileName, $content);
     }
+    public function putUser($pathAndFileName, $content, $userId = null) {
+        
+        return \MsGraphAdmin::files()->setUser($userId)->upload($pathAndFileName, $content);
+    }
     public function listFolderItems($folderPath)
     {
         return \MsGraphAdmin::files()->getChilds($folderPath);

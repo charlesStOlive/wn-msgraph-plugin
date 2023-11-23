@@ -1,0 +1,24 @@
+fields: 
+    _is_active:
+        label: Etat de la connexion
+        type: partial
+        path: $/waka/msgraph/models/settings/_active_partial.htm
+    # sharepoint_base:
+    #     label: Base de sharepoint
+    #     placeholder: you/sharepoint.com
+    drive_account:
+        label: "Compte principal pour le drive"
+        type: dropdown
+        placeholder: Choisissez un utilisatuer
+        options: ListMsGraphUsers
+    base_request:
+        label: Requête de base
+        commentAbove: Pour choisir la requête de base, cliquez sur site pour identifier vos sites, groupes pour les dites de groupes. Copiez ensuite la valeur dans le champs ci dessous
+    drive_folder:
+        label: Nom du dossier racine
+        placeholder: notilac_cloud
+        commentAbove: Laisser vide pour écrire à la racine
+    _result:
+        label: Resultat
+        type: partial
+        path: $/waka/msgraph/models/settings/_results.htm

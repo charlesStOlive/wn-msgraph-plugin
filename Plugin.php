@@ -17,6 +17,12 @@ use Event;
 class Plugin extends PluginBase
 {
     /**
+     * @var array Plugin dependencies
+     */
+    public $require = [
+        'Waka.Utils',
+    ];
+    /**
      * Returns information about this plugin.
      *
      * @return array
@@ -52,6 +58,70 @@ class Plugin extends PluginBase
     public function boot()
     {
         $this->bootPackages();
+
+        \System\Controllers\Settings::extend(function ($controller) {
+            try {
+                if ($controller->formGetWidget()->model instanceof \Waka\MsGraph\Models\Settings) {
+                     $controller->addDynamicMethod('onMsGraphTest', function () use ($controller) {
+            
+                    });
+                    $controller->addDynamicMethod('onMsGraphLists', function () use ($controller) {
+                        // $sites = \MsGraphAdmin::files()->getSites();
+                        // $controller->vars['sites'] = \Waka\MsGraph\Classes\Helpers\ParseMsData::listSites($sites);
+                        $groups = \MsGraphAdmin::files()->getGroups();
+                        $controller->vars['groups'] = \Waka\MsGraph\Classes\Helpers\ParseMsData::listGroups($groups);
+                        return [
+                                '#ms_result' => $controller->makePartial('$/waka/msgraph/models/settings/_result_lists.htm'),
+                                ];
+                    });
+                    $controller->addDynamicMethod('onSyncMsUsers', function () use ($controller) {
+                        //trace_log('onSyncMsUsers');
+                        if(\MsGraphAdmin::isConnected()) {
+                            //trace_log("isConnected");
+                            $users = \MsGraphAdmin::get('users');
+                            $users = $users['value'];
+                            //trace_log($users);
+                            $userFinded = 0;
+                            $wakaUserCount = UserModel::count();
+                            
+                            foreach($users as $user) {
+                                $mail = $user['mail'] ?? "Error_";
+                                //trace_log($mail);
+                                //trace_sql();
+                                $wakaUser = UserModel::where('email', $mail)->first();
+                                if($wakaUser) {
+                                    $userFinded++;
+                                    //trace_log($wakaUser->email);
+                                    //trace_log($user['id']);
+                                    $wakaUser->msgraph_id = $user['id'];
+                                    $wakaUser->save();
+                                    // \MsGraphAdmin::contacts()->userid($user['id'])->get();
+                                }
+                            }
+                            $controller->vars['wakaUserCount'] = $wakaUserCount;
+                            $controller->vars['userFinded'] = $userFinded;
+                            //La demande de maj du partial se fait dans le bouton je n'ai pas réussi autrement
+                            return [
+                                '#ms_result' => $controller->makePartial('$/waka/msgraph/models/settings/_result_users.htm'),
+                                ];
+                        } else {
+                            return [
+                                '#ms_result' => $controller->makePartial('$/waka/msgraph/models/settings/_errors.htm'),
+                                ];
+                        }
+                    });
+                    
+                }
+            } catch (\ApplicationException $e) {
+                //trace_log("fuck");
+            }
+            //trace_log(get_class($controller->formGetWidget()));
+            // if ($controller->formGetWidget()->model instanceof \Waka\MsGraph\Models\Settings) {
+            //     return;
+            // }
+
+           
+        });
 
         //CA NE MARCHE PAS
         UserModel::extend(function ($model) {
@@ -106,48 +176,47 @@ class Plugin extends PluginBase
             ]);
         });
 
-        WconfigSetting::extend(function ($setting) {
-            $setting->addDynamicMethod('listMsGraphUsers', function () {
-                return UserModel::where('msgraph_id', '<>', null)->lists('login', 'id');
-            });
-        });
+        // WconfigSetting::extend(function ($setting) {
+        //     $setting->addDynamicMethod('listMsGraphUsers', function () {
+        //         return UserModel::where('msgraph_id', '<>', null)->lists('login', 'id');
+        //     });
+        // });
+         //Abandon de ce principe. Maintenant dans un modèle de config. 
+        // Event::listen('backend.form.extendFields', function ($widget) {
+        //     //trace_log('yo');
+        //     if (!$widget->getController() instanceof \System\Controllers\Settings) {
+        //         return;
+        //     }
 
-        Event::listen('backend.form.extendFields', function ($widget) {
+        //     // Only for the User model
+        //     if (!$widget->model instanceof WconfigSetting) {
+        //         return;
+        //     }
 
-            //trace_log('yo');
-            if (!$widget->getController() instanceof \System\Controllers\Settings) {
-                return;
-            }
+        //     if ($widget->isNested === true) {
+        //         return;
+        //     }
 
-            // Only for the User model
-            if (!$widget->model instanceof WconfigSetting) {
-                return;
-            }
-
-            if ($widget->isNested === true) {
-                return;
-            }
-
-            $widget->addTabFields([
-                'drive_account' => [
-                    'tab' => 'Office 365',
-                    'label' => "Compte principal pour le drive",
-                    'type' => 'dropdown',
-                    'placeholder' => "Choisssez un utilisateur",
-                    'options' => 'listMsGraphUsers'
-                ],
-                'drive_folder' => [
-                    'tab' => 'Office 365',
-                    'label' => "Dossier drive",
-                    'default' => "notilac_cloud"
-                ],
-                'base_request' => [
-                    'tab' => 'Office 365',
-                    'label' => "Requête de base",
-                    'default' => "sites/notilac.sharepoint.com"
-                ],
-            ]);
-        });
+        //     $widget->addTabFields([
+        //         'drive_account' => [
+        //             'tab' => 'Office 365',
+        //             'label' => "Compte principal pour le drive",
+        //             'type' => 'dropdown',
+        //             'placeholder' => "Choisssez un utilisateur",
+        //             'options' => 'listMsGraphUsers'
+        //         ],
+        //         'drive_folder' => [
+        //             'tab' => 'Office 365',
+        //             'label' => "Dossier drive",
+        //             'default' => "notilac_cloud"
+        //         ],
+        //         'base_request' => [
+        //             'tab' => 'Office 365',
+        //             'label' => "Requête de base",
+        //             'default' => "sites/notilac.sharepoint.com"
+        //         ],
+        //     ]);
+        // });
         
     }
 
@@ -228,12 +297,12 @@ class Plugin extends PluginBase
     public function registerSettings()
     {
         return [
-            'admin_graph' => [
-                'label' => Lang::get('waka.msgraph::lang.settings.label'),
+            'new' => [
+                'label' => 'Microsoft Graph',
                 'description' => Lang::get('waka.msgraph::lang.settings.description'),
                 'category' => Lang::get('waka.msgraph::lang.settings.category'),
                 'icon' => 'wicon-windows',
-                'url' => Backend::url('waka/msgraph/admin'),
+                'class' => 'Waka\MsGraph\Models\Settings',
                 'permissions' => ['waka.msgraph.admin'],
             ],
         ];

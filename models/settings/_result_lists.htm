@@ -1,0 +1,21 @@
+<div class="t-ww">
+    <?php if (isset($sites)): ?>
+    <ul>
+        <?php foreach($sites as $value) : ?>
+        <li><?=$value['name']?> : <b><?=$value['code']?></b></li>
+        <?php endforeach ?>
+    </ul>
+    <?php endif ?>
+    <?php if (isset($groups)): ?>
+    <ul>
+        <?php foreach($groups as $value) : ?>
+        <li><?=$value['name']?> : <b><?=$value['code']?></b></li>
+        <?php endforeach ?>
+    </ul>
+    <?php endif ?>
+    <?php if (isset($result)): ?>
+     <pre>
+    <?= print_r($result) ?>
+    </pre> 
+    <?php endif ?>
+</div>
