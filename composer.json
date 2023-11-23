@@ -2,14 +2,8 @@
     "name": "waka/salesforce",
     "description": "Plugin pour salesforce",
     "type": "october-plugin",
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/charlesStOlive/laravel-microsoft-graph.git"
-        }
-    ],
     "require": {
-        "dcblogdev/laravel-microsoft-graph": "dev-master_9"
+        "dcblogdev/laravel-microsoft-graph": "^3.0.9"
     },
     "scripts": {
         "post-create-project-cmd": [
